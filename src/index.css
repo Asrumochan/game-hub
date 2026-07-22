@@ -8,9 +8,14 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Sora', 'Segoe UI', sans-serif;
+  color: #d9f5ff;
   background:
-    radial-gradient(circle at 0% 0%, rgba(15, 95, 120, 0.25), transparent 38%),
-    radial-gradient(circle at 100% 100%, rgba(249, 115, 22, 0.18), transparent 44%),
-    linear-gradient(135deg, #ecf5ff 0%, #eef4f3 52%, #f8f0e6 100%);
-  padding: 20px 14px 34px;
+    radial-gradient(circle at 12% 8%, rgba(77, 247, 200, 0.18), transparent 32%),
+    radial-gradient(circle at 86% 86%, rgba(255, 179, 79, 0.18), transparent 34%),
+    linear-gradient(140deg, #020712 0%, #051327 42%, #081c35 100%);
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
 }
