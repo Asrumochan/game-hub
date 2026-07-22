@@ -176,6 +176,22 @@ h1 {
   overflow-x: hidden;
 }
 
+.ttt-main-layout {
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.ttt-score-grid {
+  grid-template-columns: 1fr;
+}
+
+.ttt-board-wrap {
+  display: flex;
+  justify-content: center;
+}
+
 .onboarding-card {
   border-radius: 16px;
   border: 1px solid var(--line);
@@ -448,6 +464,10 @@ input:focus {
   }
 
   .rps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ttt-main-layout {
     grid-template-columns: 1fr;
   }
 }
