@@ -42,6 +42,15 @@
   text-align: center;
   position: relative;
   z-index: 1;
+  padding-top: 6px;
+}
+
+.header-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
 }
 
 .eyebrow {
@@ -372,6 +381,12 @@ input:focus {
     padding: 18px;
   }
 
+  .header-controls {
+    position: static;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
   .game-picker {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -392,6 +407,11 @@ input:focus {
 @media (max-width: 620px) {
   .hub-shell {
     padding: 14px;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .game-picker {

@@ -463,15 +463,16 @@ function App() {
   return (
     <main className="hub-shell">
       <header className="hub-header">
+        {activeGame && (
+          <div className="header-controls">
+            <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
+            <button className="btn ghost" onClick={resetSession}>Change Player</button>
+          </div>
+        )}
         <p className="eyebrow">Game Application</p>
         <h1>Arcade Hub</h1>
         <p className="subtitle">Welcome, {playerName}. Choose your game card to play.</p>
       </header>
-
-      <section className="actions-row">
-        <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
-        <button className="btn ghost" onClick={resetSession}>Change Player</button>
-      </section>
 
       <section className="game-picker">
         {gameCatalog.map((game) => (
