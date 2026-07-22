@@ -45,12 +45,51 @@
   padding-top: 6px;
 }
 
-.header-controls {
-  position: absolute;
-  top: 0;
-  right: 0;
+.top-nav {
+  position: relative;
+  z-index: 1;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.nav-left {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+}
+
+.nav-brand {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
+  justify-content: flex-end;
+}
+
+.game-tag {
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  color: var(--aqua);
+  background: rgba(11, 43, 74, 0.65);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.nav-note {
+  position: relative;
+  z-index: 1;
+  margin: 0;
 }
 
 .eyebrow {
@@ -381,10 +420,13 @@ input:focus {
     padding: 18px;
   }
 
-  .header-controls {
-    position: static;
-    justify-content: flex-end;
-    margin-bottom: 10px;
+  .top-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-right {
+    justify-content: flex-start;
   }
 
   .game-picker {
@@ -409,7 +451,7 @@ input:focus {
     padding: 14px;
   }
 
-  .header-controls {
+  .nav-right {
     flex-direction: column;
     align-items: stretch;
   }

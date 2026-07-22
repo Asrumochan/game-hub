@@ -411,14 +411,11 @@ function App() {
     setActiveGame('')
   }
 
+  const activeGameTitle = gameCatalog.find((game) => game.id === activeGame)?.title || 'None'
+
   const renderGame = () => {
     if (!activeGame) {
-      return (
-        <section className="game-surface empty-state">
-          <p className="status-line">Pick a game card to start playing.</p>
-          <p className="hint-line">You can switch games anytime from the cards above.</p>
-        </section>
-      )
+      return null
     }
 
     if (activeGame === 'tictactoe') {
@@ -462,30 +459,35 @@ function App() {
 
   return (
     <main className="hub-shell">
-      <header className="hub-header">
-        {activeGame && (
-          <div className="header-controls">
-            <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
-            <button className="btn ghost" onClick={resetSession}>Change Player</button>
-          </div>
-        )}
-        <p className="eyebrow">Game Application</p>
-        <h1>Arcade Hub</h1>
-        <p className="subtitle">Welcome, {playerName}. Choose your game card to play.</p>
+      <header className="top-nav">
+        <div className="nav-left">
+          <p className="eyebrow">Game Application</p>
+          <h1 className="nav-brand">Arcade Hub</h1>
+        </div>
+
+        <div className="nav-right">
+          <span className="game-tag">Game: {activeGameTitle}</span>
+          <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
+          <button className="btn ghost" onClick={resetSession}>Change Player</button>
+        </div>
       </header>
 
-      <section className="game-picker">
-        {gameCatalog.map((game) => (
-          <button
-            key={game.id}
-            className={`picker-card ${activeGame === game.id ? 'active' : ''}`}
-            onClick={() => setActiveGame(game.id)}
-          >
-            <strong>{game.title}</strong>
-            <span>{game.description}</span>
-          </button>
-        ))}
-      </section>
+      <p className="subtitle nav-note">Welcome, {playerName}.</p>
+
+      {!activeGame && (
+        <section className="game-picker">
+          {gameCatalog.map((game) => (
+            <button
+              key={game.id}
+              className={`picker-card ${activeGame === game.id ? 'active' : ''}`}
+              onClick={() => setActiveGame(game.id)}
+            >
+              <strong>{game.title}</strong>
+              <span>{game.description}</span>
+            </button>
+          ))}
+        </section>
+      )}
 
       {renderGame()}
     </main>
