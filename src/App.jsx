@@ -478,7 +478,13 @@ function App() {
         </div>
       </header>
 
-      <p className="subtitle nav-note">Welcome, {playerName}.</p>
+      <section className={`menu-welcome ${activeGame ? 'in-game' : ''}`}>
+        <p className="menu-kicker">Pilot Active</p>
+        <h2>
+          Welcome, <span>{playerName}</span>
+        </h2>
+        {!activeGame && <p className="subtitle nav-note">Select a game module to launch.</p>}
+      </section>
 
       {!activeGame && (
         <section className="game-picker">

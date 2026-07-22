@@ -92,6 +92,49 @@
   margin: 0;
 }
 
+.menu-welcome {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 780px;
+  margin: 2px auto 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(8, 38, 62, 0.78) 0%, rgba(9, 47, 76, 0.66) 100%);
+  box-shadow: inset 0 0 0 1px rgba(57, 224, 255, 0.09), 0 10px 26px rgba(2, 13, 26, 0.32);
+}
+
+.menu-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--aqua);
+  font-weight: 700;
+}
+
+.menu-welcome h2 {
+  margin: 6px 0 4px;
+  font-size: clamp(1.4rem, 3.3vw, 2.4rem);
+  color: var(--text);
+  text-shadow: 0 0 18px rgba(57, 224, 255, 0.22);
+}
+
+.menu-welcome h2 span {
+  color: var(--aqua);
+  text-shadow: 0 0 18px rgba(77, 247, 200, 0.35);
+}
+
+.menu-welcome.in-game {
+  max-width: 620px;
+  padding: 10px 14px;
+}
+
+.menu-welcome.in-game h2 {
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+}
+
 .eyebrow {
   font-size: 0.76rem;
   letter-spacing: 0.14em;
@@ -454,6 +497,10 @@ input:focus {
 @media (max-width: 620px) {
   .hub-shell {
     padding: 14px;
+  }
+
+  .menu-welcome {
+    padding: 12px;
   }
 
   .nav-right {
