@@ -465,7 +465,7 @@ function App() {
 
   return (
     <main className="hub-shell">
-      <header className="top-nav">
+      <nav className="top-nav menu-bar">
         <div className="nav-left">
           <p className="eyebrow">Game Application</p>
           <h1 className="nav-brand">Arcade Hub</h1>
@@ -476,32 +476,34 @@ function App() {
           <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
           <button className="btn ghost" onClick={resetSession}>Change Player</button>
         </div>
-      </header>
+      </nav>
 
-      <section className={`menu-welcome ${activeGame ? 'in-game' : ''}`}>
-        <p className="menu-kicker">Pilot Active</p>
-        <h2>
-          Welcome, <span>{playerName}</span>
-        </h2>
-        {!activeGame && <p className="subtitle nav-note">Select a game module to launch.</p>}
-      </section>
-
-      {!activeGame && (
-        <section className="game-picker">
-          {gameCatalog.map((game) => (
-            <button
-              key={game.id}
-              className={`picker-card ${activeGame === game.id ? 'active' : ''}`}
-              onClick={() => setActiveGame(game.id)}
-            >
-              <strong>{game.title}</strong>
-              <span>{game.description}</span>
-            </button>
-          ))}
+      <section className="menu-content">
+        <section className={`menu-welcome ${activeGame ? 'in-game' : ''}`}>
+          <p className="menu-kicker">Pilot Active</p>
+          <h2>
+            Welcome, <span>{playerName}</span>
+          </h2>
+          {!activeGame && <p className="subtitle nav-note">Select a game module to launch.</p>}
         </section>
-      )}
 
-      {renderGame()}
+        {!activeGame && (
+          <section className="game-picker">
+            {gameCatalog.map((game) => (
+              <button
+                key={game.id}
+                className={`picker-card ${activeGame === game.id ? 'active' : ''}`}
+                onClick={() => setActiveGame(game.id)}
+              >
+                <strong>{game.title}</strong>
+                <span>{game.description}</span>
+              </button>
+            ))}
+          </section>
+        )}
+
+        {renderGame()}
+      </section>
     </main>
   )
 }
