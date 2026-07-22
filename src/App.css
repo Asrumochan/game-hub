@@ -436,7 +436,7 @@ input:focus {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 760px) {
   .hub-shell {
     min-height: 100vh;
     padding: 18px;
