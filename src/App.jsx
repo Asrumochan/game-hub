@@ -111,7 +111,7 @@ function TicTacToeGame() {
   }
 
   return (
-    <section className="game-surface">
+    <section className="game-surface ttt-surface">
       <div className="toolbar two-col">
         <div className="field">
           <label htmlFor="nameX">Player X</label>
@@ -141,27 +141,33 @@ function TicTacToeGame() {
 
       <p className="status-line">{status}</p>
 
-      <div className="score-grid three">
-        <div className="score-box"><strong>{players.X}</strong><span>{score.X}</span></div>
-        <div className="score-box"><strong>{players.O}</strong><span>{score.O}</span></div>
-        <div className="score-box"><strong>Draws</strong><span>{score.draw}</span></div>
-      </div>
+      <div className="ttt-main-layout">
+        <aside className="ttt-side-panel">
+          <div className="score-grid ttt-score-grid">
+            <div className="score-box"><strong>{players.X}</strong><span>{score.X}</span></div>
+            <div className="score-box"><strong>{players.O}</strong><span>{score.O}</span></div>
+            <div className="score-box"><strong>Draws</strong><span>{score.draw}</span></div>
+          </div>
+        </aside>
 
-      <div className="ttt-board" role="grid" aria-label="Tic-Tac-Toe board">
-        {board.map((cell, index) => {
-          const isWinCell = winningCells.includes(index)
-          return (
-            <button
-              key={index}
-              className={`ttt-cell ${cell === 'X' ? 'mark-x' : ''} ${cell === 'O' ? 'mark-o' : ''} ${isWinCell ? 'win-cell' : ''}`}
-              onClick={() => handleMove(index)}
-              disabled={Boolean(cell) || isOver}
-              aria-label={`Cell ${index + 1}`}
-            >
-              {cell}
-            </button>
-          )
-        })}
+        <div className="ttt-board-wrap">
+          <div className="ttt-board" role="grid" aria-label="Tic-Tac-Toe board">
+            {board.map((cell, index) => {
+              const isWinCell = winningCells.includes(index)
+              return (
+                <button
+                  key={index}
+                  className={`ttt-cell ${cell === 'X' ? 'mark-x' : ''} ${cell === 'O' ? 'mark-o' : ''} ${isWinCell ? 'win-cell' : ''}`}
+                  onClick={() => handleMove(index)}
+                  disabled={Boolean(cell) || isOver}
+                  aria-label={`Cell ${index + 1}`}
+                >
+                  {cell}
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </section>
   )
