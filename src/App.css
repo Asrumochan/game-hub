@@ -442,33 +442,12 @@ input:focus {
     padding: 18px;
   }
 
-  .top-nav {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .nav-right {
-    justify-content: flex-start;
-  }
-
   .game-picker {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .toolbar.two-col {
-    grid-template-columns: 1fr;
-  }
-
   .score-grid.four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .rps-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ttt-main-layout {
-    grid-template-columns: 1fr;
   }
 }
 
