@@ -167,9 +167,9 @@ function TicTacToeGame() {
   )
 }
 
-function RockPaperScissorsGame() {
+function RockPaperScissorsGame({ playerName }) {
   const [score, setScore] = useState({ user: 0, cpu: 0, draw: 0, streak: 0, best: 0 })
-  const [status, setStatus] = useState('Choose a move to start the match.')
+  const [status, setStatus] = useState(`${playerName}, choose a move to start the match.`)
   const [lastRound, setLastRound] = useState('No rounds played yet.')
   const [active, setActive] = useState('')
   const choices = ['rock', 'paper', 'scissors']
@@ -186,7 +186,7 @@ function RockPaperScissorsGame() {
 
     if (userChoice === cpuChoice) {
       setScore((prev) => ({ ...prev, draw: prev.draw + 1, streak: 0 }))
-      setStatus('Draw round. Both chose the same move.')
+      setStatus(`Draw round. ${playerName}, both chose the same move.`)
       setLastRound(`You: ${userChoice} | Computer: ${cpuChoice}`)
       return
     }
@@ -202,10 +202,10 @@ function RockPaperScissorsGame() {
           best: Math.max(prev.best, nextStreak),
         }
       })
-      setStatus(`You win. ${userChoice} beats ${cpuChoice}.`)
+      setStatus(`${playerName} wins. ${userChoice} beats ${cpuChoice}.`)
     } else {
       setScore((prev) => ({ ...prev, cpu: prev.cpu + 1, streak: 0 }))
-      setStatus(`You lose. ${cpuChoice} beats ${userChoice}.`)
+      setStatus(`${playerName} loses. ${cpuChoice} beats ${userChoice}.`)
     }
 
     setLastRound(`You: ${userChoice} | Computer: ${cpuChoice}`)
@@ -213,7 +213,7 @@ function RockPaperScissorsGame() {
 
   const resetStats = () => {
     setScore({ user: 0, cpu: 0, draw: 0, streak: 0, best: 0 })
-    setStatus('Stats reset. Choose a move to begin again.')
+    setStatus(`Stats reset. ${playerName}, choose a move to begin again.`)
     setLastRound('No rounds played yet.')
     setActive('')
   }
@@ -240,7 +240,7 @@ function RockPaperScissorsGame() {
       </div>
 
       <div className="score-grid four">
-        <div className="score-box"><strong>You</strong><span>{score.user}</span></div>
+        <div className="score-box"><strong>{playerName}</strong><span>{score.user}</span></div>
         <div className="score-box"><strong>Computer</strong><span>{score.cpu}</span></div>
         <div className="score-box"><strong>Draws</strong><span>{score.draw}</span></div>
         <div className="score-box"><strong>Best Streak</strong><span>{score.best}</span></div>
@@ -330,12 +330,12 @@ function MemoryMatchGame() {
   )
 }
 
-function NumberGuessGame() {
+function NumberGuessGame({ playerName }) {
   const [target, setTarget] = useState(() => Math.floor(Math.random() * 100) + 1)
   const [value, setValue] = useState('')
   const [attempts, setAttempts] = useState(0)
   const [best, setBest] = useState(null)
-  const [status, setStatus] = useState('Guess a number from 1 to 100.')
+  const [status, setStatus] = useState(`${playerName}, guess a number from 1 to 100.`)
 
   const submitGuess = () => {
     const guess = Number(value)
@@ -348,7 +348,7 @@ function NumberGuessGame() {
     setAttempts(nextAttempts)
 
     if (guess === target) {
-      setStatus(`Correct. You solved it in ${nextAttempts} attempts.`)
+      setStatus(`Correct. ${playerName} solved it in ${nextAttempts} attempts.`)
       setBest((prev) => (prev === null ? nextAttempts : Math.min(prev, nextAttempts)))
       return
     }
@@ -364,7 +364,7 @@ function NumberGuessGame() {
     setTarget(Math.floor(Math.random() * 100) + 1)
     setValue('')
     setAttempts(0)
-    setStatus('New number generated. Start guessing.')
+    setStatus(`New number generated. ${playerName}, start guessing.`)
   }
 
   return (
@@ -392,19 +392,72 @@ function NumberGuessGame() {
 }
 
 function App() {
-  const [activeGame, setActiveGame] = useState('tictactoe')
+  const [nameInput, setNameInput] = useState('')
+  const [playerName, setPlayerName] = useState('')
+  const [activeGame, setActiveGame] = useState('')
+
+  const beginSession = () => {
+    const normalizedName = nameInput.trim()
+    if (!normalizedName) {
+      return
+    }
+
+    setPlayerName(normalizedName)
+  }
+
+  const resetSession = () => {
+    setPlayerName('')
+    setNameInput('')
+    setActiveGame('')
+  }
 
   const renderGame = () => {
+    if (!activeGame) {
+      return (
+        <section className="game-surface empty-state">
+          <p className="status-line">Pick a game card to start playing.</p>
+          <p className="hint-line">You can switch games anytime from the cards above.</p>
+        </section>
+      )
+    }
+
     if (activeGame === 'tictactoe') {
       return <TicTacToeGame />
     }
     if (activeGame === 'rps') {
-      return <RockPaperScissorsGame />
+      return <RockPaperScissorsGame playerName={playerName} />
     }
     if (activeGame === 'memory') {
       return <MemoryMatchGame />
     }
-    return <NumberGuessGame />
+    return <NumberGuessGame playerName={playerName} />
+  }
+
+  if (!playerName) {
+    return (
+      <main className="hub-shell">
+        <header className="hub-header">
+          <p className="eyebrow">Game Application</p>
+          <h1>Arcade Hub</h1>
+          <p className="subtitle">Enter your name to unlock the game menu.</p>
+        </header>
+
+        <section className="onboarding-card">
+          <div className="field">
+            <label htmlFor="playerName">Player Name</label>
+            <input
+              id="playerName"
+              value={nameInput}
+              onChange={(event) => setNameInput(event.target.value)}
+              placeholder="Type your name"
+            />
+          </div>
+          <button className="btn primary" onClick={beginSession} disabled={!nameInput.trim()}>
+            Continue
+          </button>
+        </section>
+      </main>
+    )
   }
 
   return (
@@ -412,8 +465,13 @@ function App() {
       <header className="hub-header">
         <p className="eyebrow">Game Application</p>
         <h1>Arcade Hub</h1>
-        <p className="subtitle">Choose any game and play from one place.</p>
+        <p className="subtitle">Welcome, {playerName}. Choose your game card to play.</p>
       </header>
+
+      <section className="actions-row">
+        <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
+        <button className="btn ghost" onClick={resetSession}>Change Player</button>
+      </section>
 
       <section className="game-picker">
         {gameCatalog.map((game) => (

@@ -83,6 +83,21 @@ h1 {
   gap: 14px;
 }
 
+.onboarding-card {
+  border-radius: 20px;
+  border: 1px solid rgba(15, 74, 92, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  display: grid;
+  gap: 12px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.empty-state {
+  text-align: center;
+}
+
 .toolbar {
   display: grid;
   gap: 10px;
