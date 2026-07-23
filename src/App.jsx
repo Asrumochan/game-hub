@@ -401,6 +401,7 @@ function App() {
   const [nameInput, setNameInput] = useState('')
   const [playerName, setPlayerName] = useState('')
   const [activeGame, setActiveGame] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const beginSession = () => {
     const normalizedName = nameInput.trim()
@@ -415,6 +416,7 @@ function App() {
     setPlayerName('')
     setNameInput('')
     setActiveGame('')
+    setMenuOpen(false)
   }
 
   const activeGameTitle = gameCatalog.find((game) => game.id === activeGame)?.title || 'None'
@@ -472,9 +474,43 @@ function App() {
         </div>
 
         <div className="nav-right">
-          <span className="game-tag">Game: {activeGameTitle}</span>
-          <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
-          <button className="btn ghost" onClick={resetSession}>Change Player</button>
+          <div className="nav-desktop-controls">
+            <span className="game-tag">Game: {activeGameTitle}</span>
+            <button className="btn ghost" onClick={() => setActiveGame('')}>Game Menu</button>
+            <button className="btn ghost" onClick={resetSession}>Change Player</button>
+          </div>
+
+          <div className="nav-mobile-menu">
+            <button
+              className="btn ghost menu-trigger"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-haspopup="menu"
+              aria-expanded={menuOpen}
+            >
+              Menu
+            </button>
+
+            {menuOpen && (
+              <div className="menu-dropdown" role="menu" aria-label="Main menu">
+                <button className="menu-item" role="menuitem" disabled>
+                  Game: {activeGameTitle}
+                </button>
+                <button
+                  className="menu-item"
+                  role="menuitem"
+                  onClick={() => {
+                    setActiveGame('')
+                    setMenuOpen(false)
+                  }}
+                >
+                  Game Menu
+                </button>
+                <button className="menu-item" role="menuitem" onClick={resetSession}>
+                  Change Player
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
 
